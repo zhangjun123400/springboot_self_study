@@ -1,0 +1,82 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: mall_base
+  datasource:
+    url: jdbc:mysql://localhost:3306/mall_tiny?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
+
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  elasticsearch:
+      uris: http://localhost:9200
+
+  date:
+    redis:
+      host: localhost # Redis
+      database: 0 # Redis
+      port: 6379  # Redis
+      password: # Redis
+      connect-timeout: 3000ms #
+      lettuce:
+        pool:
+          max-active: 8 #
+          max-idle: 8 #
+          min-idle: 0 #
+          max-wait: -1ms  #
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT-8
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+      fail-on-empty-beans: false
+
+
+mybatis:
+  mapper-locations:
+   # - classpath:dao/*.xml
+    - classpath*:com/**/mapper/*.xml
+
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.zhangjun.mbg.model.user
+
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/**
+      - /swagger-resources/**
+      - /v3/api-docs/**
+      - /swagger-ui.html
+      - /webjars/**
+      - /user/login
+
