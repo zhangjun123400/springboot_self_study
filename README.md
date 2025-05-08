@@ -5,6 +5,9 @@ Springboot3
 MYSQL
 ES
 redis
-security
-api-docs
+security6
+swagger3
+mongodb
+
+使用前需要开启ES、Kinaba、redis、mongodb
     
