@@ -81,7 +81,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //配置关闭csrf机制
-        http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf(csrf -> csrf.disable());
 
         //用户人认证校验失败处理器loginFailureHandler
         http.formLogin(configure -> configure.failureHandler(loginFailureHandler));
@@ -90,7 +90,6 @@ public class SecurityConfig {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         List<String> ignordList=ignoreUrlsConfig.getUrls();
-        //ignordList.add("/user/login");
 
         //配置请求的拦截方式
         http.authorizeHttpRequests(auth ->

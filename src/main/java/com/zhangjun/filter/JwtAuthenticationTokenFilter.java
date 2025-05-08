@@ -2,6 +2,7 @@ package com.zhangjun.filter;
 
 import com.alibaba.fastjson2.JSON;
 import com.zhangjun.common.utils.JwtUtil;
+import com.zhangjun.config.IgnoreUrlsConfig;
 import com.zhangjun.domain.vo.LoginUser;
 import com.zhangjun.exception.CustomerAuthenticationException;
 import com.zhangjun.handler.LoginFailureHandler;
@@ -23,6 +24,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,14 +41,25 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private IgnoreUrlsConfig ignoreUrlsConfig;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
             String uri = request.getRequestURI();
-            ///判断如果是登陆接口
-            if (!uri.equals("/user/login")) {
-                this.validateToken(request);
-            }
+            List<String> ignordList=ignoreUrlsConfig.getUrls();
+
+            /**
+             * ///判断如果是登陆接口
+                if (!uri.equals("/user/login")) {
+             this.validateToken(request);
+                }
+             */
+            ///判断如果是安全路径白名单
+            if (!ignordList.contains(uri)) {
+            this.validateToken(request);
+             }
         } catch (AuthenticationException e) {
            // throw new RuntimeException(e);
             loginFailureHandler.onAuthenticationFailure(request, response, e);
