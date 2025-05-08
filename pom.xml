@@ -206,6 +206,12 @@
             <version>${jaxb-api.version}</version>
         </dependency>
 
+        <!--mongodb配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
 
     </dependencies>
 
