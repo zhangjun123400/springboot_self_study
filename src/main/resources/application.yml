@@ -39,6 +39,15 @@ spring:
           min-idle: 0 #
           max-wait: -1ms  #
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /mall
+    username: mall
+    password: mall
+    publisher-returns: true #消息发送到队列确认
+    publisher-confirm-type: simple #消息发送到交换器确认
+
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT-8
