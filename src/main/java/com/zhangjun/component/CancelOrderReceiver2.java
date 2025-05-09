@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author zhangjun
- * @Date 2025/5/9 23:43
+ * @Date 2025/5/10 00:22
  * @Version 1.0
  */
 @Component
-@RabbitListener(queues = "mall.order.cancel")
-public class CancelOrderReceiver {
+@RabbitListener(queues = "mall.order.cancel2")
+public class CancelOrderReceiver2 {
     private static Logger LOGGER = LoggerFactory.getLogger(CancelOrderReceiver.class);
 
     @Autowired
@@ -23,10 +23,8 @@ public class CancelOrderReceiver {
 
     @RabbitHandler
     public void handle(Long orderId){
-        LOGGER.info("Queue 1 receive delay message orderId:{}",orderId);
+        LOGGER.info("Queue 2 receive delay message orderId:{}",orderId);
         omsPortalOrderService.cancelOrder(orderId);
     }
-
-
 
 }

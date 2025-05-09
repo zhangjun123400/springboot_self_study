@@ -13,9 +13,14 @@ import lombok.Getter;
 public enum QueueEnum {
 
     /**
-     * 消息通知队列
+     * 消息通知队列1
      */
     QUEUE_ORDER_CANCEL("mall.order.direct", "mall.order.cancel", "mall.order.cancel"),
+
+    /**
+     * 消息通知队列2
+     */
+    QUEUE_ORDER_CANCEL2("mall.order.direct", "mall.order.cancel2", "mall.order.cancel"),
 
     /**
      * 消息通知ttl队列

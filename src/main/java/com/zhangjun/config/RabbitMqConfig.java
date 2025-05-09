@@ -37,11 +37,19 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 订单实际消费队列
+     * 订单实际消费队列1
      */
     @Bean
     public Queue orderQueue(){
         return new Queue(QueueEnum.QUEUE_ORDER_CANCEL.getName());
+    }
+
+    /**
+     * 订单实际消费队列2
+     */
+    @Bean
+    public Queue orderQueue2(){
+        return new Queue(QueueEnum.QUEUE_ORDER_CANCEL2.getName());
     }
 
     /**
@@ -60,12 +68,24 @@ public class RabbitMqConfig {
      * 将订单队列绑定到交换机
      */
     @Bean
-    Binding orderBinding(DirectExchange orderDirect,Queue orderQueue){
+    Binding orderBinding1(DirectExchange orderDirect,Queue orderQueue){
         return BindingBuilder
                 .bind(orderQueue)
                 .to(orderDirect)
                 .with(QueueEnum.QUEUE_ORDER_CANCEL.getRouteKey());
     }
+
+    /**
+     * 将订单队列绑定到交换机
+     */
+    @Bean
+    Binding orderBinding2(DirectExchange orderDirect,Queue orderQueue2){
+        return BindingBuilder
+                .bind(orderQueue2)
+                .to(orderDirect)
+                .with(QueueEnum.QUEUE_ORDER_CANCEL2.getRouteKey());
+    }
+
 
     /**
      * 将订单延迟队列绑定到交换机
