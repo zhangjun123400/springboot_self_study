@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -56,10 +57,20 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
              this.validateToken(request);
                 }
              */
-            ///判断如果是安全路径白名单
-            if (!ignordList.contains(uri)) {
-            this.validateToken(request);
-             }
+
+
+            // 初始化路径匹配器
+            AntPathMatcher pathMatcher = new AntPathMatcher();
+
+            // 判断 URI 是否匹配任意白名单模式
+            boolean isIgnored = ignordList.stream()
+                    .anyMatch(pattern -> pathMatcher.match(pattern, uri));
+
+            //判断如果是安全路径白名单
+            if (!isIgnored) {
+
+                this.validateToken(request);
+            }
         } catch (AuthenticationException e) {
            // throw new RuntimeException(e);
             loginFailureHandler.onAuthenticationFailure(request, response, e);
