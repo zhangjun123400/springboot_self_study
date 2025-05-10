@@ -4,6 +4,7 @@ import com.zhangjun.common.api.CommonResult;
 import com.zhangjun.exception.CustomerAuthenticationException;
 import com.zhangjun.mbg.model.user.UmsAdmin;
 import com.zhangjun.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -33,7 +35,8 @@ public class UserController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @RequestMapping(value = "/login")
+    @Operation(summary = "用户登陆")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public CommonResult<? extends Map> login(@RequestBody UmsAdmin user) {
 
         Map<String,Object> map =  userService.login(user);
@@ -47,7 +50,8 @@ public class UserController {
     }
 
 
-    @RequestMapping("/logout")
+    @Operation(summary = "用户登出")
+    @RequestMapping(value = "/logout",method = RequestMethod.POST)
     public CommonResult logout(HttpServletRequest request, HttpServletResponse response)
     {
 

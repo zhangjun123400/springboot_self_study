@@ -50,6 +50,7 @@
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <JustAuthlatest.version>1.16.7</JustAuthlatest.version>
         <hutool.version>5.8.25</hutool.version>
+        <minio.version>8.4.5</minio.version>
     </properties>
     <dependencies>
         <dependency>
@@ -221,6 +222,13 @@
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!--MinIO Java SDK依赖-->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
         </dependency>
 
 

@@ -9,6 +9,10 @@ spring:
     username: root
     password: root@123
     driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      enabled: true #开 启文件上传
+      max-file-size: 10MB # 限制文件上传大小为10M
 
   mvc:
     path match:
@@ -61,6 +65,12 @@ mybatis:
   mapper-locations:
    # - classpath:dao/*.xml
     - classpath*:com/**/mapper/*.xml
+
+minio:
+  endpoint: http://localhost:9000
+  bucketName: mall # 存储桶名称
+  accessKey: minioadmin # 访问的key
+  secretKey: minioadmin # 访问的秘钥
 
 
 
