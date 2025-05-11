@@ -7,6 +7,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author zhangjun
@@ -22,6 +23,7 @@ public class CancelOrderReceiver2 {
     private OmsPortalOrderService omsPortalOrderService;
 
     @RabbitHandler
+    @Transactional
     public void handle(Long orderId){
         LOGGER.info("Queue 2 receive delay message orderId:{}",orderId);
         omsPortalOrderService.cancelOrder(orderId);

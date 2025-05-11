@@ -29,6 +29,9 @@ public class OmsPortalOrderServiceImpl implements OmsPortalOrderService {
         LOGGER.info("process generateOrder");
         //下单完成后开启一个延迟消息，用于当用户没有付款时取消订单（orderId应该在下单后生成）
         sendDelayMessageCancelOrder(11L);
+
+        //该订单下单后，超时前正常支付后完成订单
+        sendDelayMessageCancelOrder(12L);
         return CommonResult.success(null,"下单成功");
     }
 

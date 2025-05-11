@@ -32,4 +32,11 @@ public class OmsPortalOrderController {
     public Object generateOrder(@RequestBody OrderParam orderParam){
         return omsPortalOrderService.generateOrder(orderParam);
     }
+
+    @Operation(summary = "订单支付")
+    @RequestMapping(value = "/pay",method = RequestMethod.POST)
+    @ResponseBody
+    public void alipay(){
+
+    }
 }
